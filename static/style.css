@@ -1,0 +1,233 @@
+/* ПЕРЕМЕННЫЕ ДЛЯ ДВУХ ТЕМ ОФОРМЛЕНИЯ */
+.dark-theme {
+    --bg-main: #121214;
+    --bg-sidebar: #19191b;
+    --bg-header: #19191b;
+    --bg-card: #1e1e21;
+    --bg-card-hover: #262629;
+    --border-color: #2c2c2e;
+    --text-main: #ffffff;
+    --text-muted: #8e8e93;
+    --accent-blue: #0067ff;
+    --accent-blue-hover: #0056d6;
+    --modal-bg: #19191b;
+}
+
+.light-theme {
+    --bg-main: #ffffff;
+    --bg-sidebar: #f1f3f4;
+    --bg-header: #ffffff;
+    --bg-card: #f8f9fa;
+    --bg-card-hover: #e8eaed;
+    --border-color: #dadce0;
+    --text-main: #3c4043;
+    --text-muted: #5f6368;
+    --accent-blue: #1a73e8;
+    --accent-blue-hover: #1557b0;
+    --modal-bg: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Шапка приложения */
+.google-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--border-color);
+    height: 56px;
+}
+.header-left, .header-right { display: flex; align-items: center; gap: 12px; }
+.logo { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; }
+.logo-square {
+    width: 24px; height: 24px; background: var(--accent-blue); color: #fff;
+    border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold;
+}
+
+/* Строка поиска */
+.header-search-container {
+    display: flex;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 6px 12px;
+    width: 280px;
+}
+.search-icon-inside { margin-right: 8px; color: var(--text-muted); }
+.header-search-container input {
+    background: none; border: none; color: var(--text-main); width: 100%; outline: none; font-size: 14px;
+}
+
+.btn-today {
+    background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
+    padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer;
+}
+.nav-arrows { display: flex; gap: 4px; }
+.arrow-btn { background: none; border: none; color: var(--text-main); cursor: pointer; padding: 6px; }
+.current-month-title { font-size: 18px; min-width: 120px; font-weight: 400; }
+
+/* Вкладки сверху */
+.view-tabs { display: flex; background: var(--bg-card); padding: 3px; border-radius: 20px; border: 1px solid var(--border-color); }
+.tab-btn {
+    background: none; border: none; color: var(--text-muted); padding: 6px 16px;
+    font-size: 13px; border-radius: 15px; cursor: pointer;
+}
+.tab-btn.active { background: var(--bg-main); color: var(--text-main); font-weight: 500; }
+
+.btn-backup { background: none; border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+.avatar { width: 28px; height: 28px; background: #5e5ce6; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;}
+.icon-btn { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; padding: 6px; border-radius: 50%; }
+.icon-btn:hover { background: var(--bg-card); color: var(--text-main); }
+
+/* Боковое меню */
+.app-layout { display: flex; flex: 1; overflow: hidden; }
+.sidebar { width: 256px; background-color: var(--bg-sidebar); padding: 16px; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 24px; }
+
+/* Кнопка "Создать" */
+.create-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; background: var(--bg-card); border: 1px solid var(--border-color);
+    border-radius: 24px; color: var(--text-main); font-size: 14px; font-weight: 500; cursor: pointer; width: 140px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.create-btn:hover { background: var(--bg-card-hover); }
+.create-icon { color: var(--accent-blue); font-weight: bold; font-size: 16px; }
+
+/* Сетка мини-календаря */
+.mini-calendar { font-size: 12px; }
+.cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; color: var(--text-main); font-weight: 500;}
+.cal-nav { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 10px; padding: 4px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; row-gap: 6px;}
+.cal-weekdays { color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+.cal-day-cell { padding: 4px 0; cursor: pointer; display: flex; align-items: center; justify-content: center; height: 26px; width: 26px; margin: 0 auto; border-radius: 50%; color: var(--text-main); }
+.cal-day-cell:hover { background: var(--bg-card-hover); }
+.cal-day-cell.other-month { color: rgba(142, 142, 147, 0.3); }
+.cal-day-cell.selected-filter-day { background-color: #5e5ce6 !important; color: #fff !important; font-weight: bold; }
+.cal-day-cell.today-active { background-color: var(--accent-blue) !important; color: white !important; font-weight: bold; }
+
+/* Пространства */
+.calendar-selector-section { display: flex; flex-direction: column; gap: 12px; }
+.section-title-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.section-title { font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }
+.reset-filter-btn { background: none; border: none; color: var(--accent-blue); font-size: 11px; cursor: pointer; padding: 0; }
+.checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-main); }
+.custom-cb { width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-blue); }
+
+/* Основная контентная область */
+.main-content { flex: 1; overflow: hidden; position: relative; }
+.view-area { height: 100%; width: 100%; overflow-y: auto; }
+
+/* Канбан-доска */
+.kanban-board { display: grid; grid-template-columns: repeat(3, 1fr); height: 100%; width: 100%; }
+.kanban-column { border-right: 1px solid var(--border-color); display: flex; flex-direction: column; height: 100%; }
+.column-header-date { display: flex; flex-direction: column; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border-color); background: var(--bg-main); }
+.day-name { font-size: 11px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }
+.day-number { font-size: 16px; margin-top: 4px; }
+.highlight-num { color: #fff; background: var(--accent-blue); padding: 2px 6px; border-radius: 50%; font-size: 12px; }
+.kanban-cards-grid { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; background: var(--bg-main); }
+
+/* Карточки задач в Канбане */
+.kanban-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+.kanban-card.P1 { border-left: 4px solid #ff453a; }
+.kanban-card.P2 { border-left: 4px solid #ff9f0a; }
+.kanban-card.P3 { border-left: 4px solid #30d158; }
+.kanban-card.P4 { border-left: 4px solid #64d2ff; }
+.kanban-card h4 { margin: 0; font-size: 14px; font-weight: 500; color: var(--text-main); }
+.kanban-card p { margin: 0; font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; }
+.kanban-actions { display: flex; gap: 6px; justify-content: flex-end; margin-top: 6px; }
+
+/* Режим Почасового Таймлайна (День) */
+.day-timeline-container { display: flex; flex-direction: column; height: 100%; }
+.timeline-header-grid { display: flex; border-bottom: 1px solid var(--border-color); background-color: var(--bg-main); position: sticky; top:0; z-index: 10; }
+.timezone-cell { width: 70px; min-width: 70px; font-size: 10px; color: var(--text-muted); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; }
+.day-column-title { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 0; border-left: 1px solid var(--border-color); }
+.timeline-num-circle { font-size: 20px; font-weight: 500; margin-top: 2px; display: inline-block; padding: 2px 8px; border-radius: 50%; }
+.timeline-num-circle.active-blue { background-color: var(--accent-blue); color: #fff; }
+.timeline-scroll-area { flex: 1; overflow-y: auto; position: relative; }
+.timeline-hour-row { display: flex; min-height: 56px; }
+.hour-label { width: 70px; min-width: 70px; text-align: right; padding-right: 12px; font-size: 11px; color: var(--text-muted); margin-top: -6px; }
+
+/* Важно: относительное позиционирование для слота, чтобы внутри него абсолютно растягивать карточки */
+.hour-content-slot { 
+    flex: 1; 
+    border-left: 1px solid var(--border-color); 
+    border-bottom: 1px solid var(--border-color); 
+    position: relative; 
+    background: var(--bg-main); 
+}
+
+/* Новые адаптивные карточки событий для Календарной сетки */
+.timeline-event-card { 
+    position: absolute;
+    left: 6px;
+    right: 24px; /* Оставляем зазор справа */
+    border-radius: 4px; 
+    padding: 6px 12px; 
+    font-size: 12px; 
+    color: #fff; 
+    cursor: pointer; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2px;
+    z-index: 20;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.timeline-event-card.P1 { background-color: rgba(255, 69, 58, 0.22); border-left: 4px solid #ff453a; }
+.timeline-event-card.P2 { background-color: rgba(255, 159, 10, 0.22); border-left: 4px solid #ff9f0a; }
+.timeline-event-card.P3 { background-color: rgba(48, 209, 88, 0.22); border-left: 4px solid #30d158; }
+.timeline-event-card.P4 { background-color: rgba(100, 210, 255, 0.22); border-left: 4px solid #64d2ff; }
+.event-title { font-weight: 600; font-size: 13px; }
+.event-time-badge { font-size: 10px; color: var(--text-muted); }
+
+/* Режим Списка */
+.view-title { padding: 16px 24px 0 24px; margin: 0; font-size: 18px; font-weight: 500; }
+.task-list { padding: 16px 24px; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.task-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; }
+.task-item.P1 { border-left: 4px solid #ff453a; }
+.task-item.P2 { border-left: 4px solid #ff9f0a; }
+.task-item.P3 { border-left: 4px solid #30d158; }
+.task-item.P4 { border-left: 4px solid #64d2ff; }
+.task-meta { font-size: 11px; color: var(--text-muted); margin-left: 8px; }
+
+/* Модальное окно */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background: var(--modal-bg); border: 1px solid var(--border-color); padding: 24px; border-radius: 12px; width: 440px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.modal-content h3 { margin: 0; font-weight: 500; font-size: 18px; }
+.modal-content input[type="text"], .modal-content input[type="date"], .modal-content input[type="time"], .modal-content select {
+    background: var(--bg-main); border: 1px solid var(--border-color); padding: 10px; color: var(--text-main); border-radius: 6px; outline: none; width: 100%; font-size: 14px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-row:has(> .form-group:only-child) { grid-template-columns: 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--text-muted); }
+.nlp-preview-box { font-size: 11px; color: #30d158; background: rgba(48,209,88,0.1); padding: 8px; border-radius: 6px; border: 1px solid rgba(48,209,88,0.2); display: none; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px; }
+
+/* Кнопки управления */
+.btn-primary { background: var(--accent-blue); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 14px; }
+.btn-primary:hover { background: var(--accent-blue-hover); }
+.btn-flat { background: none; border: none; padding: 10px 16px; cursor: pointer; color: var(--text-muted); font-size: 14px; }
+.btn-flat:hover { color: var(--text-main); }
+.btn-mini { background: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main); font-size: 11px; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+.btn-mini:hover { background: var(--bg-card-hover); }
+
+/* Таймер Помодоро */
+.pomodoro-container { text-align: center; margin-top: 60px; }
+.timer-display { font-size: 96px; color: #ff453a; font-weight: 200; margin-bottom: 24px; letter-spacing: 2px; }

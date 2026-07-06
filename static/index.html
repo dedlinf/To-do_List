@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTask — Календарь Задач</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+    <header class="google-header">
+        <div class="header-left">
+            <button class="icon-btn">☰</button>
+            <div class="logo">
+                <div class="logo-square">E</div>
+                <span class="logo-text">Календарь задач</span>
+            </div>
+            <button class="btn-today" onclick="setTodayFilter()">Сегодня</button>
+            <div class="nav-arrows">
+                <button class="arrow-btn" onclick="changeMonth(-1)">◀</button>
+                <button class="arrow-btn" onclick="changeMonth(1)">▶</button>
+            </div>
+            <span class="current-month-title" id="calendarMonthHeader">Июль 2026</span>
+        </div>
+        
+        <div class="header-search-container">
+            <span class="search-icon-inside">🔍</span>
+            <input type="text" id="searchInput" placeholder="Поиск задач..." oninput="handleSearch()">
+        </div>
+        
+        <div class="view-tabs">
+            <button class="tab-btn" id="tab-list" onclick="switchView('list')">Список</button>
+            <button class="tab-btn active" id="tab-kanban" onclick="switchView('kanban')">Неделя </button>
+            <button class="tab-btn" id="tab-day" onclick="switchView('day')">День</button>
+            <button class="tab-btn" id="tab-pomodoro" onclick="switchView('pomodoro')">Помодоро</button>
+        </div>
+
+        <div class="header-right">
+            <button class="icon-btn" title="Сменить тему оформления" onclick="toggleTheme()">🌓</button>
+            <button class="icon-btn" title="Настройки">⚙️</button>
+            <button class="btn-backup" onclick="exportData()">Бэкап JSON</button>
+            <div class="avatar">Макс</div>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <aside class="sidebar">
+            <button class="create-btn" onclick="openModal()">
+                <span class="create-icon">➕</span>
+                <span class="create-text">Создать</span>
+                <span class="create-arrow">▼</span>
+            </button>
+
+            <div class="mini-calendar">
+                <div class="cal-header">
+                    <span id="miniCalTitle">Июль 2026</span>
+                    <div>
+                        <button class="cal-nav" onclick="changeMonth(-1)">◀</button>
+                        <button class="cal-nav" onclick="changeMonth(1)">▶</button>
+                    </div>
+                </div>
+                <div class="cal-grid cal-weekdays">
+                    <div>Вс</div><div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div>
+                </div>
+                <div class="cal-grid" id="miniCalDays">
+                </div>
+            </div>
+
+            <div class="calendar-selector-section">
+                <div class="section-title-container">
+                    <div class="section-title">Мои пространства</div>
+                    <button class="reset-filter-btn" onclick="clearDateFilter()">Показать все дни</button>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" checked id="cal-projects" class="custom-cb">
+                    <label for="cal-projects">Курсовой проект</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" checked id="cal-birthdays" class="custom-cb">
+                    <label for="cal-birthdays">Дни рождения</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" checked id="cal-tasks" class="custom-cb">
+                    <label for="cal-tasks">Личные задачи</label>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div id="listView" class="view-area" style="display: none;">
+                <h2 class="view-title" id="listTitle">Все задачи</h2>
+                <ul id="taskList" class="task-list"></ul>
+            </div>
+
+            <div id="kanbanView" class="view-area">
+                <div class="kanban-board">
+                    <div class="kanban-column" id="col-todo">
+                        <div class="column-header-date">
+                            <span class="day-name">НУЖНО СДЕЛАТЬ</span>
+                            <span class="day-number">📥</span>
+                        </div>
+                        <div class="kanban-cards-grid"></div>
+                    </div>
+                    <div class="kanban-column" id="col-in_progress">
+                        <div class="column-header-date">
+                            <span class="day-name">В ПРОЦЕССЕ</span>
+                            <span class="day-number highlight-num">⏳</span>
+                        </div>
+                        <div class="kanban-cards-grid"></div>
+                    </div>
+                    <div class="kanban-column" id="col-done">
+                        <div class="column-header-date">
+                            <span class="day-name">ГОТОВО</span>
+                            <span class="day-number">✅</span>
+                        </div>
+                        <div class="kanban-cards-grid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dayView" class="view-area" style="display: none;">
+                <div class="day-timeline-container">
+                    <div class="timeline-header-grid">
+                        <div class="timezone-cell">GMT+03</div>
+                        <div class="day-column-title">
+                            <span id="timelineDayName">ПН</span>
+                            <span id="timelineDayNumber" class="timeline-num-circle">6</span>
+                        </div>
+                    </div>
+                    <div class="timeline-scroll-area" id="hourlyTimelineGrid">
+                    </div>
+                </div>
+            </div>
+
+            <div id="pomodoroView" class="view-area" style="display: none;">
+                <div class="pomodoro-container">
+                    <div class="timer-display" id="timerDisplay">25:00</div>
+                    <div class="timer-controls">
+                        <button class="btn-primary" id="startTimerBtn" onclick="togglePomodoro()">Старт</button>
+                        <button class="btn-flat" onclick="resetPomodoro()">Сброс</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <h3>Создать задачу или событие</h3>
+            <input type="text" id="taskInput" placeholder="Название (например: Семинар)" oninput="parseNLPLive()">
+            
+            <div id="nlpPreview" class="nlp-preview-box"></div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="taskDate">Дата:</label>
+                    <input type="date" id="taskDate">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="taskTimeStart">Время начала:</label>
+                    <input type="time" id="taskTimeStart" value="12:00">
+                </div>
+                <div class="form-group">
+                    <label for="taskTimeEnd">Время окончания:</label>
+                    <input type="time" id="taskTimeEnd" value="13:00">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="prioritySelect">Приоритет важности:</label>
+                <select id="prioritySelect">
+                    <option value="P1">🔴 Высокий (P1)</option>
+                    <option value="P2">🟠 Средний (P2)</option>
+                    <option value="P3">🔵 Низкий (P3)</option>
+                    <option value="P4" selected>⚪ Обычный (P4)</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-flat" onclick="closeModal()">Отмена</button>
+                <button class="btn-primary" onclick="addTask()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "1111111",
+    "completed": false,
+    "priority": "P2",
+    "deadline": "2026-07-06 11:11",
+    "start_time": "",
+    "end_time": "12:22",
+    "status": "todo"
+  },
+  {
+    "id": 2,
+    "title": "aa",
+    "completed": false,
+    "priority": "P4",
+    "deadline": "2026-07-07 11:11",
+    "start_time": "",
+    "end_time": "22:11",
+    "status": "todo"
+  },
+  {
+    "id": 3,
+    "title": "23",
+    "completed": false,
+    "priority": "P4",
+    "deadline": "2026-07-07 22:22",
+    "start_time": "",
+    "end_time": "23:40",
+    "status": "todo"
+  },
+  {
+    "id": 4,
+    "title": "тренировка",
+    "completed": false,
+    "priority": "P2",
+    "deadline": "2026-07-07 12:00",
+    "start_time": "",
+    "end_time": "16:00",
+    "status": "todo"
+  }
+]
