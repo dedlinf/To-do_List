@@ -1,3 +1,5 @@
+Пример работы приложения <img width="2301" height="884" alt="image" src="https://github.com/user-attachments/assets/74b37842-b770-4871-b150-c6a921eb349d" />
+
 Weekly Calendar TodoList
 Это веб-приложение для планирования задач на неделю. Проект разработан в рамках ознакомительной практики на кафедре ПОВТ.
 
@@ -13,8 +15,7 @@ Weekly Calendar TodoList
 
 Скачайте репозиторий:
 
-Bash
-git clone https://github.com/Relikqq/To-do_List.git
+Bash 
 cd To-do_List
 Запустите сервер:
 В терминале, находясь в папке проекта, выполните:
